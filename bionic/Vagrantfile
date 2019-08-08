@@ -1,7 +1,7 @@
 $script_mysql = <<-SCRIPT
   apt-get update && \
   apt-get install -y mysql-server-5.7 \
-  musql -e "create user 'phpuser'@'%' idenfied by 'pass';"
+  mysql -e "create user 'phpuser'@'%' idenfied by 'pass';"
 SCRIPT
 
 Vagrant.configure("2") do |config|
@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: $script_mysql
 
   #-----------------SINCRONIZAÇÃO E ACESSO A PASTAS HOST-GUEST
-  config.vm.synced_folder "./configs", "/configs"
+  config.vm.synced_folder "./configs", "/configs" # pasta VM, pasta host - A Referência é a pasta do vagrantfile
 
   #Evita acesso ao vagrantfile
   config.vm.synced_folder ".", "/vagrant", disabled: true
